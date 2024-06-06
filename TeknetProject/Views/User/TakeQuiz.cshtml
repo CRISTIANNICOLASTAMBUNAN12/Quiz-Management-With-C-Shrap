@@ -1,0 +1,201 @@
+﻿@model TeknetProject.Models.Quizzes
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Take Quiz - @Model.Title</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .answered {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .quiz-info {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- Kotak untuk menampilkan nomor soal dan status jawaban -->
+            <div class="col-sm-8">
+                <h1>@Model.Title</h1>
+                <p> @Html.Raw(Model.Description)</p>
+                <hr />
+                <form asp-controller="User" asp-action="SubmitQuiz" method="post">
+                    <input type="hidden" name="quizId" value="@Model.QuizID" />
+                    @for (int i = 0; i < Model.Questions.Count; i++)
+                    {
+                        var question = Model.Questions[i];
+                        <div class="card mb-3" id="question_@question.QuestionID">
+                            <div class="card-body">
+                                <h5 class="card-title">Question @(i + 1)</h5>
+                                <p class="card-text">@question.QuestionText</p>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="answers[@question.QuestionID]" id="optionA_@question.QuestionID" value="OptionA">
+                                        <label class="form-check-label" for="optionA_@question.QuestionID">
+                                            @question.OptionA
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="answers[@question.QuestionID]" id="optionB_@question.QuestionID" value="OptionB">
+                                        <label class="form-check-label" for="optionB_@question.QuestionID">
+                                            @question.OptionB
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="answers[@question.QuestionID]" id="optionC_@question.QuestionID" value="OptionC">
+                                        <label class="form-check-label" for="optionC_@question.QuestionID">
+                                            @question.OptionC
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="answers[@question.QuestionID]" id="optionD_@question.QuestionID" value="OptionD">
+                                        <label class="form-check-label" for="optionD_@question.QuestionID">
+                                            @question.OptionD
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <button type="submit" class="btn btn-primary">Submit Quiz</button>
+                </form>
+            </div>
+
+            <!-- Kotak untuk menampilkan jumlah soal dan timer -->
+            <div class="col-sm-4">
+                <div class="quiz-info">
+                    <h5>Total Questions</h5>
+                    <p>@Model.Questions.Count</p>
+                    <hr />
+                    <h5>Timer</h5>
+                    <p id="countdown"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    // Mendapatkan durasi kuis dari model
+    var secondsLeft = @Model.DurationInSeconds;
+
+
+    // Fungsi untuk menghitung mundur waktu kuis
+    function countdown() {
+        var countdownElement = document.getElementById("countdown");
+
+        var interval = setInterval(function () {
+            secondsLeft--;
+
+            // Update tampilan durasi yang tersisa
+            countdownElement.innerText = formatTime(secondsLeft);
+
+            if (secondsLeft <= 0) {
+                clearInterval(interval);
+                // Otomatis kirim kuis saat waktu habis
+                handleQuizSubmission();
+            }
+        }, 1000);
+    }
+
+    // Fungsi untuk mengatur jawaban otomatis ketika waktu habis
+    function handleQuizSubmission() {
+        var unansweredQuestions = document.querySelectorAll('input[type="radio"]:not(:checked)');
+        unansweredQuestions.forEach(function (input) {
+            input.checked = true;
+            input.value = "optionE";
+        });
+        document.querySelector('form').submit();
+    }
+
+    // Tidak perlu lagi fungsi validateQuizSubmission
+
+
+    // Fungsi untuk memformat waktu
+    function formatTime(seconds) {
+        var minutes = Math.floor(seconds / 60);
+        var remainingSeconds = seconds % 60;
+
+        // Format waktu dalam menit dan detik
+        return minutes + "m " + remainingSeconds + "s";
+    }
+
+    // Fungsi untuk memvalidasi pengiriman kuis sebelumnya
+    function validateQuizSubmission() {
+        var questions = document.querySelectorAll('.card');
+        var allQuestionsAnswered = true;
+
+        questions.forEach(function (question) {
+            var questionId = question.id.split('_')[1];
+            var answered = false;
+
+            // Periksa apakah ada opsi yang dipilih untuk pertanyaan ini
+            var options = question.querySelectorAll('input[type="radio"]');
+            options.forEach(function (option) {
+                if (option.checked) {
+                    answered = true;
+                }
+            });
+
+            // Jika tidak ada opsi yang dipilih untuk pertanyaan ini, tandai sebagai belum dijawab
+            if (!answered) {
+                allQuestionsAnswered = false;
+                question.classList.remove('answered');
+                // Tambahkan teks "Pilih salah satu jawaban" di bawah pertanyaan yang belum dijawab
+                question.querySelector('.form-group').insertAdjacentHTML('beforeend', '<p style="color: red;">Pilih salah satu jawaban</p>');
+            } else {
+                question.classList.add('answered');
+                // Hapus teks "Pilih salah satu jawaban" jika pertanyaan telah dijawab
+                var errorMsg = question.querySelector('p');
+                if (errorMsg) {
+                    errorMsg.remove();
+                }
+            }
+        });
+
+        // Jika semua pertanyaan dijawab, kirimkan kuis
+        if (allQuestionsAnswered) {
+            return true; // Form akan dikirim
+        } else {
+            alert('Please answer all questions before submitting the quiz.');
+            return false; // Form tidak akan dikirim
+        }
+    }
+
+    // Tambahkan event listener ke form untuk memvalidasi kuis sebelum pengiriman
+    var quizForm = document.querySelector('form');
+    quizForm.addEventListener('submit', function (event) {
+        if (!validateQuizSubmission()) {
+            event.preventDefault(); // Mencegah pengiriman form jika validasi gagal
+        } else {
+            // Tandai kuis telah dikirim di localStorage
+            localStorage.setItem('quizSubmitted', true);
+        }
+    });
+
+    // Periksa apakah kuis telah dikirim sebelumnya saat halaman dimuat
+    document.addEventListener("DOMContentLoaded", function () {
+        var quizSubmitted = localStorage.getItem('quizSubmitted');
+
+        // Jika kuis telah dikirim, nonaktifkan tombol submit atau tambahkan pesan yang sesuai
+        if (quizSubmitted) {
+            var submitButton = document.querySelector('button[type="submit"]');
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.innerText = "Quiz Submitted";
+            }
+        }
+
+        // Panggil fungsi countdown saat halaman dimuat
+        countdown();
+    });
+
+
+</script>

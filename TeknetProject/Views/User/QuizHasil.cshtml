@@ -1,0 +1,89 @@
+﻿@model List<TeknetProject.Models.QuizResult>
+@using Microsoft.AspNetCore.Identity
+@using TeknetProject.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Selamat Datang</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Quiz Result</h1>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>User</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@(i + 1)</td>
+                                        <td>@($"{Model[i].User.FirstName} {Model[i].User.LastName}")</td>
+                                        <td>@Model[i].Score</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <a href="@Url.Action("BackToHome", "User")">Kembali ke Halaman Utama</a>
+                    </div>
+                </div>
+
+            </div>
+                  
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    // Fungsi untuk menghapus status pengiriman kuis dari penyimpanan lokal
+    function clearQuizSubmissionStatus() {
+        localStorage.removeItem('quizSubmitted');
+    }
+
+    // Event listener untuk tombol memulai kuis baru
+    var startQuizButton = document.getElementById('startQuizButton');
+    startQuizButton.addEventListener('click', function () {
+        // Hapus status pengiriman kuis dari penyimpanan lokal
+        clearQuizSubmissionStatus();
+    });
+</script>

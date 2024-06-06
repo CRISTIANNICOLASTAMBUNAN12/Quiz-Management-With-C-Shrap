@@ -1,0 +1,166 @@
+﻿
+
+
+    @model TeknetProject.Models.Question
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/fonts/icomoon/style.css">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/tambun.css">
+    <style>
+        .option {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .option-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .question-text, .option-text {
+            resize: none;
+            overflow-y: auto;
+        }
+
+        .options-container {
+            white-space: nowrap;
+        }
+
+        .option-text {
+            width: 310px; /* Ubah lebar sesuai kebutuhan */
+            height: 200px;
+        }
+
+        .correct-answer {
+            background-color: green;
+            color: white;
+        }
+    </style>
+    <title>Sidebar #1</title>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="toggle">
+            <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+                <span></span>
+            </a>
+        </div>
+        <div class="side-inner">
+
+            <div class="logo-wrap">
+                <div class="logo">
+                    <span>Q</span>
+                </div>
+                <span class="logo-text">
+                    QuizzyWhiz
+                </span>
+            </div>
+
+            <div class="search-form">
+                <form action="#">
+                    <span class="wrap-icon">
+                        <span class="icon-search2"></span>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+            <div class="nav-menu">
+                <ul>
+                    <li class="active"><a href="@Url.Action("Index", "Admin")" class="d-flex align-items-center"><span class="wrap-icon icon-home2 mr-3"></span><span class="menu-text">Dashboard</span></a></li>
+                    <li><a href="@Url.Action("Murid", "Admin")" class="d-flex align-items-center"><span class="wrap-icon icon-videocam mr-3"></span><span class="menu-text">Murid</span></a></li>
+                    <li><a href="@Url.Action("ListQuiz", "Quiz")" class="d-flex align-items-center"><span class="wrap-icon icon-circle mr-3"></span><span class="menu-text">Quizzes</span></a></li>
+                    <li><a href="@Url.Action("Index", "Materi")" class="d-flex align-items-center"><span class="wrap-icon icon-book mr-3"></span><span class="menu-text">Materi</span></a></li>
+
+                </ul>
+            </div>
+        </div>
+
+    </aside>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container-fluid">
+
+            <div class="row justify-content-center">
+                <div class="col-md-9">
+                    <h1>Quizzes</h1>
+                    <div class="row">
+                        <div class="row mt-5">
+                            <h1>Delete Question</h1>
+                            <p>Are you sure you want to delete the following question?</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dl class="dl-horizontal">
+                                        <dt>Question:</dt>
+                                        <dd>@Model.QuestionText</dd>
+                                        <dt>Options:</dt>
+                                        <dd>@Model.OptionA</dd>
+                                        <dd>@Model.OptionB</dd>
+                                        <dd>@Model.OptionC</dd>
+                                        <dd>@Model.OptionD</dd>
+                                        <dt>Correct Answer:</dt>
+                                        <dd>@Model.CorrectAnswer</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <form method="post" action="@Url.Action("DeleteConfirmed", "Question", new { questionId = Model.QuestionID })">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </form>
+
+                            <a href="@Url.Action("EditQuiz", "Quiz", new { id = Model.QuizID })" class="btn btn-secondary">Cancel</a>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script>
+        // Script untuk memastikan hanya satu pilihan yang bisa dipilih sebagai jawaban yang benar
+        $('input[type="checkbox"]').on('change', function () {
+            $('input[type="checkbox"]').not(this).prop('checked', false);
+        });
+    </script>
+
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Cristian Tambunan\\source\\repos\\Service_MataPelajaran\\wwwroot\\images\\013243ea-77dd-49fc-8e95-a0dd20fda29b.jpeg",
+      "PackagePath": "staticwebassets\\images\\013243ea-77dd-49fc-8e95-a0dd20fda29b.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Cristian Tambunan\\source\\repos\\Service_MataPelajaran\\wwwroot\\images\\6ed76e07-6ac5-44db-926c-564615f687cf.png",
+      "PackagePath": "staticwebassets\\images\\6ed76e07-6ac5-44db-926c-564615f687cf.png"
+    },
+    {
+      "Id": "C:\\Users\\Cristian Tambunan\\source\\repos\\Service_MataPelajaran\\wwwroot\\images\\874d6425-1084-480a-bf96-e748fd1300c8.jpeg",
+      "PackagePath": "staticwebassets\\images\\874d6425-1084-480a-bf96-e748fd1300c8.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Cristian Tambunan\\source\\repos\\Service_MataPelajaran\\wwwroot\\images\\eee6b649-7ccb-44ac-b7c6-715dc7f5d447.jpeg",
+      "PackagePath": "staticwebassets\\images\\eee6b649-7ccb-44ac-b7c6-715dc7f5d447.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Cristian Tambunan\\source\\repos\\Service_MataPelajaran\\wwwroot\\images\\f1a3fc1f-f7d7-4eee-b928-180d6cdc2672.jpeg",
+      "PackagePath": "staticwebassets\\images\\f1a3fc1f-f7d7-4eee-b928-180d6cdc2672.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Cristian Tambunan\\source\\repos\\Service_MataPelajaran\\wwwroot\\images\\fe9a5446-35d6-4f62-b314-583ed83421bb.png",
+      "PackagePath": "staticwebassets\\images\\fe9a5446-35d6-4f62-b314-583ed83421bb.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Service_MataPelajaran.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Service_MataPelajaran.props",
+      "PackagePath": "build\\Service_MataPelajaran.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Service_MataPelajaran.props",
+      "PackagePath": "buildMultiTargeting\\Service_MataPelajaran.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Service_MataPelajaran.props",
+      "PackagePath": "buildTransitive\\Service_MataPelajaran.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

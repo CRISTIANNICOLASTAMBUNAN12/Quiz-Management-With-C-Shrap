@@ -1,0 +1,139 @@
+﻿@model IEnumerable<TeknetProject.Models.Materi>
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/fonts/icomoon/style.css">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/tambun.css">
+    <title>Sidebar #1</title>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="toggle">
+            <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+                <span></span>
+            </a>
+        </div>
+        <div class="side-inner">
+
+            <div class="logo-wrap">
+                <div class="logo">
+                    <span>Q</span>
+                </div>
+                <span class="logo-text">
+                    QuizzyWhiz
+                </span>
+            </div>
+
+            <div class="search-form">
+                <form action="#">
+                    <span class="wrap-icon">
+                        <span class="icon-search2"></span>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+            <div class="nav-menu">
+                <ul>
+                    <li class="active"><a href="@Url.Action("Index", "Admin")" class="d-flex align-items-center"><span class="wrap-icon icon-home2 mr-3"></span><span class="menu-text">Dashboard</span></a></li>
+                    <li><a href="@Url.Action("Murid", "Admin")" class="d-flex align-items-center"><span class="wrap-icon icon-videocam mr-3"></span><span class="menu-text">Murid</span></a></li>
+                    <li><a href="@Url.Action("ListQuiz", "Quiz")" class="d-flex align-items-center"><span class="wrap-icon icon-circle mr-3"></span><span class="menu-text">Quizzes</span></a></li>
+                    <li><a href="@Url.Action("Index", "Materi")" class="d-flex align-items-center"><span class="wrap-icon icon-book mr-3"></span><span class="menu-text">Materi</span></a></li>
+
+                </ul>
+            </div>
+        </div>
+
+    </aside>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container-fluid">
+
+            <div class="row justify-content-center">
+                <div class="col-md-9">
+                    <h1>Daftar Materi</h1>
+                    <p>
+                        <a asp-action="Create">Create New</a>
+                    </p>
+                    @if (Model != null && Model.Any())
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Judul</th>
+                                    <th>Konten</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int no = 1; // variabel untuk nomor
+                                }
+
+                                @foreach (var materi in Model)
+                                {
+                                    <tr>
+                                        <td>@no</td>
+                                        <td>@materi.Judul</td>
+                                        <td>@Html.Raw(materi.Konten)</td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = materi.Id }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = materi.Id })
+                                        </td>
+                                    </tr>
+                                    no++; // increment nomor
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>Tidak ada materi yang tersedia.</p>
+                    }
+                   
+
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</body>
+</html>

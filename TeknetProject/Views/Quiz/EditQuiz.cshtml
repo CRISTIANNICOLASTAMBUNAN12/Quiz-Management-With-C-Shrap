@@ -1,0 +1,234 @@
+﻿@model TeknetProject.Models.Quizzes
+@using Microsoft.AspNetCore.Identity
+@using TeknetProject.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/fonts/icomoon/style.css">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/tambun.css">
+    <title>Sidebar #1</title>
+
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="toggle">
+            <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+                <span></span>
+            </a>
+        </div>
+        <div class="side-inner">
+
+            <div class="logo-wrap">
+                <div class="logo">
+                    <span>Q</span>
+                </div>
+                <span class="logo-text">
+                    QuizzyWhiz
+                </span>
+            </div>
+
+            <div class="search-form">
+                <form action="#">
+                    <span class="wrap-icon">
+                        <span class="icon-search2"></span>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+            <div class="nav-menu">
+                <ul>
+                    <li class="active"><a href="@Url.Action("Index", "Admin")" class="d-flex align-items-center"><span class="wrap-icon icon-home2 mr-3"></span><span class="menu-text">Dashboard</span></a></li>
+                    <li><a href="@Url.Action("Murid", "Admin")" class="d-flex align-items-center"><span class="wrap-icon icon-videocam mr-3"></span><span class="menu-text">Murid</span></a></li>
+                    <li><a href="@Url.Action("ListQuiz", "Quiz")" class="d-flex align-items-center"><span class="wrap-icon icon-circle mr-3"></span><span class="menu-text">Quizzes</span></a></li>
+                    <li><a href="@Url.Action("Index", "Materi")" class="d-flex align-items-center"><span class="wrap-icon icon-book mr-3"></span><span class="menu-text">Materi</span></a></li>
+
+                </ul>
+            </div>
+        </div>
+
+    </aside>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container-fluid">
+
+            <div class="row justify-content-center">
+                <div class="col-md-9">
+                    <h1>Quizzes</h1>
+                    <div class="row">
+                        <div class="row mt-5">
+                            <h1>Detail Quizzes</h1>
+
+                            @using (Html.BeginForm("EditQuiz", "Quiz", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Title, "Judul", htmlAttributes: new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control", @readonly = ViewBag.ReadOnlyTitle, @disabled = ViewBag.DisabledTitle })
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Raw(Model.Description)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DurationInSeconds, "Durasi (dalam detik)", htmlAttributes: new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.DurationInSeconds, new { @class = "form-control", @readonly = ViewBag.ReadOnlyDuration, @disabled = ViewBag.DisabledDuration })
+                                    @Html.ValidationMessageFor(model => model.DurationInSeconds, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Code, "Kata Sandi", htmlAttributes: new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.Code, new { @class = "form-control", @readonly = ViewBag.ReadOnlyCode, @disabled = ViewBag.DisabledCode })
+                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IsReusable, "Lebih banyak percobaan", htmlAttributes: new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.IsReusable, new { @class = "form-control", @readonly = ViewBag.ReadOnlyIsReusable, @disabled = ViewBag.DisabledIsReusable })
+                                    @Html.ValidationMessageFor(model => model.IsReusable, "", new { @class = "text-danger" })
+                                </div>
+
+
+
+
+                                @* Hidden field to hold the QuizID value *@
+                                @Html.HiddenFor(model => model.QuizID)
+
+                                <h2>Soal</h2>
+
+                                <div class="row">
+                                    @for (var i = 0; i < Model.Questions.Count; i++)
+                                    {
+                                        var question = Model.Questions[i];
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Soal @(i + 1)</h5>
+                                                    <p class="card-text question-text">@Html.DisplayFor(modelItem => question.QuestionText)</p>
+                                                    <p class="card-text">
+                                                        <strong>Pilihan Jawaban</strong>
+                                                        <div class="answer-options">
+                                                            <div class="answer-pair">
+                                                                <span>A. @Html.DisplayFor(modelItem => question.OptionA)</span>
+                                                                <span>B. @Html.DisplayFor(modelItem => question.OptionB)</span>
+                                                            </div>
+                                                            <div class="answer-pair">
+                                                                <span>C. @Html.DisplayFor(modelItem => question.OptionC)</span>
+                                                                <span>D. @Html.DisplayFor(modelItem => question.OptionD)</span>
+                                                            </div>
+                                                        </div>
+                                                    </p>
+
+
+
+                                                    <span class="correct-answer" style="display:none;">
+                                                        <strong>Correct Answer:</strong> @Html.DisplayFor(modelItem => question.CorrectAnswer)
+                                                    </span>
+                                                    <br />
+                                                    <a href="@Url.Action("EditQuestion", "Question", new { questionId = question.QuestionID, quizId = Model.QuizID })" class="btn btn-primary">Edit</a>
+                                                    <a href="@Url.Action("DeleteQuestion", "Question", new { questionId = question.QuestionID })" class="btn btn-primary">Delete</a>
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <button type="button" class="btn btn-primary show-all-correct-answers">Show Correct Answers</button>
+                                <button type="button" class="btn btn-primary add-new-question">Tambah Pertanyaan Baru</button>
+
+
+                            }
+
+                            <p>@Html.ValidationSummary("", new { @class = "text-danger" })</p>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Hide correct answers when the page is loaded
+            $(".correct-answer").hide();
+
+            // Toggle correct answers visibility when the button is clicked
+            $(".show-all-correct-answers").click(function () {
+                $(".correct-answer").toggle();
+            });
+
+            // Redirect to CreateQuestion action when "Tambah Pertanyaan Baru" button is clicked
+            $(".add-new-question").click(function () {
+                var quizId = @Model.QuizID; // Retrieve the QuizID from the model
+                window.location.href = "/Question/CreateQuestion?quizId=" + quizId;
+            });
+
+            // Map the correct answer with the displayed options
+            var optionMap = {
+                "OptionA": "Option 1",
+                "OptionB": "Option 2",
+                "OptionC": "Option 3",
+                "OptionD": "Option 4"
+            };
+
+            // Update correct answer display when an option is selected
+            $(".answer-options").on("click", ".answer-pair span", function () {
+                var correctAnswer = $(this).text();
+                var mappedAnswer = optionMap[correctAnswer.trim()]; // Map the correct answer
+                $(this).closest(".card").find(".correct-answer .correct-answer-value").text(mappedAnswer);
+            });
+        });
+    </script>
+
+    
+
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
+
+</body>
+</html>

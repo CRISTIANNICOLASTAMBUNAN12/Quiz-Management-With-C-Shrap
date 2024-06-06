@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Run Quiz</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Ambil Kuis</h5>
+                        <form asp-controller="Quiz" asp-action="RunQuiz" method="post">
+                            <div class="form-group">
+                                <label for="quizCode">Kode Kuis</label>
+                                <input type="text" class="form-control" id="quizCode" name="code">
+                                <small id="codeHelp" class="form-text text-muted">Masukkan kode kuis yang Anda terima.</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="startQuizButton">Ambil Kuis</button>
+                        </form>
+                        @if (ViewData["Error"] != null)
+                        {
+                            <div class="alert alert-danger mt-3" role="alert">
+                                @ViewData["Error"]
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk menghapus status pengiriman kuis dari penyimpanan lokal
+        function clearQuizSubmissionStatus() {
+            localStorage.removeItem('quizSubmitted');
+        }
+
+        // Event listener untuk tombol memulai kuis baru
+        var startQuizButton = document.getElementById('startQuizButton');
+        startQuizButton.addEventListener('click', function () {
+            // Hapus status pengiriman kuis dari penyimpanan lokal
+            clearQuizSubmissionStatus();
+        });
+    </script>
+</body>
+</html>

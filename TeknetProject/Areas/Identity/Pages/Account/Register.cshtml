@@ -1,0 +1,84 @@
+﻿@page
+@model RegisterModel
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/Login.css">
+
+    <title>Login #2</title>
+</head>
+<body>
+
+
+    <div class="d-lg-flex half">
+        <div class="bg order-1 order-md-2" style="background-image: url('@Url.Content("~/images/kids.jpg")');"></div>
+
+        <div class="contents order-2 order-md-1">
+
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-7">
+                        <h3>Login to <strong>Quizzy Whiz</strong></h3>
+                       
+                        <form id="account" method="post">
+                            <div class="form-group first">
+                                <label for="FirstName">FirstName</label>
+                                <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" placeholder="Nama Depan" />
+                                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group first">
+                                <label for="LastName">LastName</label>
+                                <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" placeholder="Nama Belakang" />
+                                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group first">
+                                <label for="Email">Email</label>
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group first">
+                                <label for="Password">Password</label>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group first">
+                                <label for="ConfirmPassword">ConfirmPassword</label>
+                                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+
+
+
+                            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+
+                        </form><br />
+                        <div class="text-center">
+                            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Already Have account? Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

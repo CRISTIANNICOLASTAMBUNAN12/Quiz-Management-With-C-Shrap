@@ -1,0 +1,6 @@
+@Service_MataPelajaran_HostAddress = http://localhost:5203
+
+GET {{Service_MataPelajaran_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
